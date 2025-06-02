@@ -1,16 +1,16 @@
 
-import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 import { 
+  Home, 
   Cpu, 
   Monitor, 
   Network, 
   BarChart3, 
-  Home,
   Settings,
-  ChevronLeft,
-  ChevronRight
+  GitBranch,
+  Shield
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface SidebarProps {
   activeModule: string;
@@ -23,70 +23,64 @@ const menuItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
   { id: "plc", label: "PLC Programming", icon: Cpu },
   { id: "hmi", label: "HMI Designer", icon: Monitor },
+  { id: "state-machine", label: "State Machine", icon: GitBranch },
   { id: "devices", label: "Device Manager", icon: Network },
+  { id: "gateway", label: "Protocol Gateway", icon: Shield },
   { id: "monitor", label: "Data Monitor", icon: BarChart3 },
-  { id: "settings", label: "Settings", icon: Settings },
 ];
 
-export const Sidebar = ({ activeModule, setActiveModule, collapsed, setCollapsed }: SidebarProps) => {
+export const Sidebar = ({ activeModule, setActiveModule, collapsed }: SidebarProps) => {
   return (
     <div className={cn(
-      "fixed left-0 top-0 h-full bg-slate-900 text-white transition-all duration-300 z-30",
+      "fixed left-0 top-0 h-full bg-slate-900 text-white transition-all duration-300 z-40",
       collapsed ? "w-16" : "w-64"
     )}>
-      {/* Header */}
-      <div className="p-4 border-b border-slate-700">
-        <div className="flex items-center justify-between">
+      <div className="p-4">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+            <Cpu className="w-4 h-4" />
+          </div>
           {!collapsed && (
             <div>
-              <h1 className="text-xl font-bold text-blue-400">AutoStudio</h1>
-              <p className="text-xs text-slate-400">Industrial Platform</p>
+              <h1 className="font-bold text-lg">AutomationStudio</h1>
+              <p className="text-xs text-slate-400">Industrial Control Platform</p>
             </div>
           )}
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="p-1 hover:bg-slate-700 rounded"
-          >
-            {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
-          </button>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="mt-4">
+      <nav className="mt-8">
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
-            <button
+            <Button
               key={item.id}
-              onClick={() => setActiveModule(item.id)}
+              variant={activeModule === item.id ? "secondary" : "ghost"}
               className={cn(
-                "w-full flex items-center p-3 hover:bg-slate-700 transition-colors",
-                activeModule === item.id && "bg-blue-600 border-r-2 border-blue-400"
+                "w-full justify-start text-left h-12 rounded-none",
+                collapsed ? "px-4" : "px-6",
+                activeModule === item.id && "bg-blue-600 hover:bg-blue-700"
               )}
+              onClick={() => setActiveModule(item.id)}
             >
-              <Icon size={20} className="flex-shrink-0" />
-              {!collapsed && (
-                <span className="ml-3 text-sm font-medium">{item.label}</span>
-              )}
-            </button>
+              <Icon className="w-5 h-5" />
+              {!collapsed && <span className="ml-3">{item.label}</span>}
+            </Button>
           );
         })}
       </nav>
 
-      {/* Status Indicator */}
-      <div className="absolute bottom-4 left-4 right-4">
-        {!collapsed && (
-          <div className="bg-slate-800 rounded-lg p-3">
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">System Status</span>
-              <div className="flex items-center space-x-1">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-xs text-green-400">Online</span>
-              </div>
-            </div>
-          </div>
-        )}
+      <div className="absolute bottom-4 left-0 right-0 px-4">
+        <Button
+          variant="ghost"
+          className={cn(
+            "w-full justify-start text-left h-12",
+            collapsed ? "px-4" : "px-6"
+          )}
+        >
+          <Settings className="w-5 h-5" />
+          {!collapsed && <span className="ml-3">Settings</span>}
+        </Button>
       </div>
     </div>
   );

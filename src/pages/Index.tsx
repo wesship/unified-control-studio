@@ -7,6 +7,8 @@ import { HMIDesigner } from "@/components/modules/HMIDesigner";
 import { DeviceManager } from "@/components/modules/DeviceManager";
 import { DataMonitor } from "@/components/modules/DataMonitor";
 import { Dashboard } from "@/components/modules/Dashboard";
+import { StateMachineDesigner } from "@/components/modules/StateMachineDesigner";
+import { ProtocolGateway } from "@/components/modules/ProtocolGateway";
 
 const Index = () => {
   const [activeModule, setActiveModule] = useState("dashboard");
@@ -24,6 +26,10 @@ const Index = () => {
         return <DeviceManager />;
       case "monitor":
         return <DataMonitor />;
+      case "state-machine":
+        return <StateMachineDesigner />;
+      case "gateway":
+        return <ProtocolGateway />;
       default:
         return <Dashboard />;
     }
