@@ -9,6 +9,7 @@ import { DataMonitor } from "@/components/modules/DataMonitor";
 import { Dashboard } from "@/components/modules/Dashboard";
 import { StateMachineDesigner } from "@/components/modules/StateMachineDesigner";
 import { ProtocolGateway } from "@/components/modules/ProtocolGateway";
+import { AIIntegration } from "@/components/modules/AIIntegration";
 
 const Index = () => {
   const [activeModule, setActiveModule] = useState("dashboard");
