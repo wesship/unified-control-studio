@@ -30,6 +30,8 @@ const Index = () => {
         return <StateMachineDesigner />;
       case "gateway":
         return <ProtocolGateway />;
+      case "ai-integration":
+        return <AIIntegration />;
       default:
         return <Dashboard />;
     }

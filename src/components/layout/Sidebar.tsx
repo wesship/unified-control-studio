@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { 
@@ -9,7 +8,8 @@ import {
   BarChart3, 
   Settings,
   GitBranch,
-  Shield
+  Shield,
+  Bot
 } from "lucide-react";
 
 interface SidebarProps {
@@ -27,6 +27,7 @@ const menuItems = [
   { id: "devices", label: "Device Manager", icon: Network },
   { id: "gateway", label: "Protocol Gateway", icon: Shield },
   { id: "monitor", label: "Data Monitor", icon: BarChart3 },
+  { id: "ai-integration", label: "AI Integration", icon: Bot },
 ];
 
 export const Sidebar = ({ activeModule, setActiveModule, collapsed }: SidebarProps) => {
